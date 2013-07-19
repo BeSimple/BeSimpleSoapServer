@@ -10,7 +10,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace BeSimple\Tests\SoapServer;
+namespace BeSimple\SoapServer\Tests;
 
 use BeSimple\SoapServer\SoapServerBuilder;
 
