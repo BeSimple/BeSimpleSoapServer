@@ -138,9 +138,6 @@ class SoapServer extends \SoapServer
     private function configureMime(array &$options)
     {
         if (isset($options['attachment_type']) && Helper::ATTACHMENTS_TYPE_BASE64 !== $options['attachment_type']) {
-            // register mime filter in SoapKernel
-            $mimeFilter = new MimeFilter($options['attachment_type']);
-            $this->soapKernel->registerFilter($mimeFilter);
             // configure type converter
             if (Helper::ATTACHMENTS_TYPE_SWA === $options['attachment_type']) {
                 $converter = new SwaTypeConverter();
@@ -151,6 +148,9 @@ class SoapServer extends \SoapServer
                 $converter = new MtomTypeConverter();
                 $converter->setKernel($this->soapKernel);
             }
+            // register mime filter in SoapKernel
+            $mimeFilter = new MimeFilter($options['attachment_type']);
+            $this->soapKernel->registerFilter($mimeFilter);
             // configure typemap
             if (!isset($options['typemap'])) {
                 $options['typemap'] = array();
